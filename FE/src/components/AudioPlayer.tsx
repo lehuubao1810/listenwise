@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
-import toast from "react-hot-toast";
 import { Sentence } from "@/type/Sentence";
 import { host } from "@/constant/host";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -122,7 +121,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ script }) => {
   };
 
   return (
-    <div className="min-w-[65%] min-w-[65%]">
+    <div className="min-w-[65%] max-w-[65%]">
       <div ref={waveformRef} />
       <div
         className="flex gap-4 items-center justify-center w-full mt-10 relative
