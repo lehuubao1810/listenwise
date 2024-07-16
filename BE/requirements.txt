@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+SpeechRecognition
+pydub
+youtube-transcript-api
+openai-whisper
+nltk
+yt_dlp
+transformers
