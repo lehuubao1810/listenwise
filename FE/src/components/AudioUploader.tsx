@@ -8,6 +8,7 @@ import { host } from "@/constant/host";
 import { ScanningScreen } from "./ScanningScreen";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
 const AudioUploader: React.FC = () => {
   const [transcript, setTranscript] = useState<Sentence[]>([]);
@@ -56,6 +57,7 @@ const AudioUploader: React.FC = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error("We're updating our servers. Please try again later.");
     } finally {
       setLoading(false);
       setTimeout(() => {
