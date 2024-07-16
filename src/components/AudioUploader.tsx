@@ -6,6 +6,8 @@ import AudioPlayer from "./AudioPlayer";
 import { Sentence } from "@/type/Sentence";
 import { host } from "@/constant/host";
 import { ScanningScreen } from "./ScanningScreen";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 const AudioUploader: React.FC = () => {
   const [transcript, setTranscript] = useState<Sentence[]>([]);
@@ -63,18 +65,31 @@ const AudioUploader: React.FC = () => {
   };
 
   return (
-    <div>
-      <input
-        placeholder="file"
-        type="file"
-        accept="audio/*"
-        onChange={handleFileChange}
-        className="mb-4"
-      />
+    <div className="flex flex-col items-center w-full">
+      <div
+        className="mb-4 bg-gradient-to-r from-blue-500 via-indigo-600 to-sky-500 
+      h-14 w-60 rounded-full relative flex items-center justify-center cursor-pointer group"
+      >
+        <FontAwesomeIcon
+          className="text-2xl text-white group-hover:scale-[1.15] transition-all"
+          icon={faUpload}
+        />
+        <input
+          placeholder="file"
+          type="file"
+          accept="audio/*"
+          onChange={handleFileChange}
+          className="w-full h-full opacity-0 absolute top-0 left-0 cursor-pointer"
+        />
+      </div>
       {loading ? (
         <ScanningScreen progress={progress} />
-      ) : (
+      ) : transcript.length > 0 ? (
         <AudioPlayer script={transcript} />
+      ) : (
+        <div className="text-center font-semibold">
+          Please upload an audio file to practice speaking
+        </div>
       )}
     </div>
   );

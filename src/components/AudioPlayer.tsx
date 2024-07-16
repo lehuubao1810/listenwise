@@ -3,6 +3,13 @@ import WaveSurfer from "wavesurfer.js";
 import toast from "react-hot-toast";
 import { Sentence } from "@/type/Sentence";
 import { host } from "@/constant/host";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBackward,
+  faForward,
+  faPause,
+  faPlay,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface AudioPlayerProps {
   script: Sentence[];
@@ -16,6 +23,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ script }) => {
   const waveSurferRef = useRef<WaveSurfer | null>(null);
   const [answer, setAnswer] = useState<string>("");
   const [statusAnswer, setStatusAnswer] = useState<"" | true | false>("");
+  const [isHint, setIsHint] = useState<boolean>(false);
 
   const playAudio = (index: number) => {
     const sentence = script[index];
@@ -114,11 +122,27 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ script }) => {
   };
 
   return (
-    <div>
+    <div className="min-w-[65%] min-w-[65%]">
       <div ref={waveformRef} />
-      <div className="flex gap-4">
+      <div
+        className="flex gap-4 items-center justify-center w-full mt-10 relative
+        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+      "
+      >
+        {currentIndex > 0 && (
+          <button
+            onClick={prevSentence}
+            className="w-12 h-12 bg-blue-500 text-white rounded-full text-xl
+              absolute top-1/2 left-[35%] transform -translate-y-1/2
+            "
+          >
+            <FontAwesomeIcon icon={faBackward} /> {""}
+          </button>
+        )}
         <button
-          className="p-2 bg-blue-500 text-white rounded-lg"
+          className="w-12 h-12 bg-gradient-to-r from-blue-500 via-indigo-600 to-sky-500 text-white rounded-full text-xl
+            absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+          "
           onClick={() => {
             if (isPlaying) {
               pauseAudio();
@@ -127,52 +151,63 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ script }) => {
             }
           }}
         >
-          {isPlaying ? "Pause" : "Play"}
+          {isPlaying ? (
+            <FontAwesomeIcon icon={faPause} />
+          ) : (
+            <FontAwesomeIcon icon={faPlay} />
+          )}
         </button>
         {currentIndex < script.length - 1 && (
           <button
             onClick={nextSentence}
-            className="p-2 bg-blue-500 text-white rounded-lg"
+            className="w-12 h-12 bg-blue-500 text-white rounded-full text-xl
+              absolute top-1/2 right-[35%] transform -translate-y-1/2
+            "
           >
-            Next
-          </button>
-        )}
-        {currentIndex > 0 && (
-          <button
-            onClick={prevSentence}
-            className="p-2 bg-blue-500 text-white rounded-lg"
-          >
-            Previous
+            <FontAwesomeIcon icon={faForward} />
+            {""}
           </button>
         )}
       </div>
-      <div className="mt-4" onSubmit={(e) => handleCheckAnswer(e)}>
-        <form action="">
-          <label htmlFor="answer">Answer:</label>
+      <div
+        className="mt-8 w-full flex flex-col items-center justify-center relative"
+        onSubmit={(e) => handleCheckAnswer(e)}
+      >
+        <form action="" className="flex w-full gap-4">
           <input
             type="text"
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
-            className={`mt-2 p-2 border ${
+            className={`mt-2 p-2 border-2 ${
               statusAnswer === ""
                 ? "border-gray-300"
                 : statusAnswer
                 ? "border-green-500"
                 : "border-red-500"
-            } rounded-lg outline-none`}
+            } rounded-lg outline-none w-full`}
             placeholder="Type your answer here"
           />
           <button
             type="submit"
-            className="mt-2 p-2 bg-blue-500 text-white rounded-lg"
+            className="mt-2 p-2 px-4 bg-blue-500 text-white rounded-full text-sm font-semibold"
           >
             Submit
           </button>
+          <button
+            type="button"
+            onClick={() => setIsHint(!isHint)}
+            className="mt-2 p-2 px-[0.7rem] bg-blue-500 text-white rounded-full"
+          >
+            💡
+          </button>
         </form>
-      </div>
-      {/* hint */}
-      <div className="mt-4">
-        <p>Hint: {currentSentence?.text}</p>
+        {/* hint */}
+        {isHint && (
+          <div className="mt-4 p-2 relative">
+            <span className="font-semibold">💡Hint:</span>{" "}
+            {currentSentence?.text}
+          </div>
+        )}
       </div>
     </div>
   );
