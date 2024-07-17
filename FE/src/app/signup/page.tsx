@@ -5,15 +5,15 @@ export default function SignUp() {
   return (
     <div className="flex min-h-screen flex-1 flex-col justify-center items-center lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-6 text-center text-3xl font-extrabold leading-9 text-indigo-500">
+        {/* <h1 className="mt-6 text-center text-3xl font-extrabold leading-9 text-indigo-500">
           LW.
-        </h1>
+        </h1> */}
         <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign up for an account
         </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-10 w-[80%] sm:mx-auto sm:w-full sm:max-w-sm">
         <form action="#" method="POST" className="space-y-6">
           <div>
             <label
