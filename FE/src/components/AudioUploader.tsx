@@ -43,13 +43,13 @@ const AudioUploader: React.FC = () => {
       setProgress(100);
 
       const data = await response.json();
-      const transcripts = data.transcripts;
-      const script = transcripts.map((transcript: any) => {
+      const segments = data.segments;
+      const script = segments.map((segment: any) => {
         return {
-          text: transcript.text,
-          start: transcript.start,
-          duration: transcript.duration,
-          audio_path: `${host.dev}/${transcript.audio_path}`,
+          text: segment.text,
+          start: segment.start,
+          duration: segment.duration,
+          audio_path: `${host.dev}/${segment.audio_path}`,
         };
       });
       if (response.ok) {

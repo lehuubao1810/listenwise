@@ -23,11 +23,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <main>
           <ToastContainer />
-          <Header />
           <div className="main">
             <div className="gradient" />
           </div>
-          {children}
+          <div className="relative z-50">{children}</div>
         </main>
       </body>
     </html>

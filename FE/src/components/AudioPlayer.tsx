@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { Sentence } from "@/type/Sentence";
 import { host } from "@/constant/host";
@@ -50,6 +50,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ script }) => {
     setAnswer("");
     if (currentIndex < script.length - 1) {
       playAudio(currentIndex + 1);
+      waveSurferRef.current?.seekTo(0); // seek to the beginning of the audio
     }
   };
   const prevSentence = () => {
@@ -57,6 +58,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ script }) => {
     setAnswer("");
     if (currentIndex > 0) {
       playAudio(currentIndex - 1);
+      waveSurferRef.current?.seekTo(0);
     }
   };
 
