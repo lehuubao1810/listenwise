@@ -4,6 +4,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Header } from "@/components/Header";
 import { ToastContainer } from "react-toastify";
+import { Footer } from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,13 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main>
-          <ToastContainer />
-          <div className="main">
-            <div className="gradient" />
-          </div>
-          <div className="relative z-50">{children}</div>
-        </main>
+        <ToastContainer />
+        <div className="flex flex-col min-h-[100dvh]">
+          <Header />
+          {children}
+          
+        </div>
       </body>
     </html>
   );
